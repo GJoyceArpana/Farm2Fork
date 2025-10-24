@@ -1,6 +1,9 @@
 // src/sections/Hero.jsx
 import React from 'react';
 import { ArrowRight, QrCode } from 'lucide-react';
+// Import the image asset. You must place your image file (e.g., image_345f42.jpg)
+// and rename it to 'field-bg.jpg' inside the src/assets/ folder.
+import fieldBg from '../assets/field-bg.png'; 
 
 const Hero = () => {
   return (
@@ -10,6 +13,7 @@ const Hero = () => {
         <div>
           <h1 className="text-6xl font-extrabold text-gray-900 leading-tight mb-6">
             Trace your produce from 
+            {/* The 'text-gradient' class is defined in src/styles/App.css */}
             <span className="text-gradient"> farm to fork</span>
           </h1>
           <p className="text-lg text-gray-600 mb-10">
@@ -28,11 +32,14 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Right Side: Image Placeholder */}
+        {/* Right Side: Image Display */}
         <div className="h-[500px] rounded-lg overflow-hidden shadow-2xl">
-          {/* In a real project, you would use the actual image here, perhaps as a background image 
-          or an <img> tag. For now, we use a placeholder and an image tag for display. */}
-                  </div>
+          <img
+            src={fieldBg}
+            alt="Vast green agricultural fields"
+            className="w-full h-full object-cover"
+          />
+        </div>
       </div>
     </section>
   );

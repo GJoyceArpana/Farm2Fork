@@ -1,68 +1,63 @@
+/*
+|--------------------------------------------------------------------------
+| BASE TAILWIND & FONT IMPORTS
+|--------------------------------------------------------------------------
+| The @tailwind directives must be at the top of the file.
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+/*
+|--------------------------------------------------------------------------
+| GLOBAL CSS RESET & FONT SETUP
+|--------------------------------------------------------------------------
+| Setting base font and removing default margins.
+*/
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* Overriding default Vite font settings with Poppins for the design */
+  font-family: 'Poppins', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
 }
 
 body {
+  /* Removing default margin and ensuring body spans the full width/height */
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  min-width: 100%; /* Changed from 320px to 100% for full width */
   min-height: 100vh;
+  background-color: #ffffff; /* Explicitly set light background */
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/*
+|--------------------------------------------------------------------------
+| CUSTOM STYLES (From App.css in previous steps, now consolidated here)
+|--------------------------------------------------------------------------
+*/
+
+/* Custom color variables used by the components */
+:root {
+  --color-primary: #38a169; /* A strong, friendly green */
+  --color-secondary: #2f855a; /* A darker green for accents */
+  --color-text-dark: #1a202c;
+  --color-text-light: #4a5568;
+  --color-background-light: #f7fafc;
+  --color-background-faint-green: #e9f7ee;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* Custom class for the gradient text effect in the Hero title */
+.text-gradient {
+  background: linear-gradient(90deg, #38a169, #48bb78);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
+/* Note: Button and link styles are now mostly handled by Tailwind classes in the JSX, 
+   but we'll keep the custom button styles provided in the component files 
+   (like .btn-primary) to ensure consistency. You should ensure App.css is 
+   now merged into this index.css, and then App.css can be deleted. */
