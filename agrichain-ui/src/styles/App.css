@@ -1,0 +1,70 @@
+/* src/styles/App.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-primary: #38a169; /* A strong, friendly green */
+  --color-secondary: #2f855a; /* A darker green for accents */
+  --color-text-dark: #1a202c;
+  --color-text-light: #4a5568;
+  --color-background-light: #f7fafc;
+  --color-background-faint-green: #e9f7ee; /* Faint green for the hero section */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #38a169, #48bb78);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Base button style for the main CTA */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-secondary);
+}
+
+.btn-secondary-outline {
+  background-color: transparent;
+  color: var(--color-text-light);
+  padding: 10px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  border: 2px solid var(--color-text-light);
+  transition: border-color 0.3s, color 0.3s;
+  cursor: pointer;
+}
+
+.btn-secondary-outline:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Section specific styling */
+.section-padding {
+  padding: 80px 0;
+}
