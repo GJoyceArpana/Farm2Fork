@@ -4,8 +4,9 @@ import { Leaf, User, Sun, Moon } from 'lucide-react';
 
 // Navbar is now fixed to always use hash links for client-side routing
 const Navbar = ({ currentPage, isDarkMode, toggleTheme }) => {
-  // If the user is on the Dashboard, we only show the logo and sign-out related icons, not the main nav links.
-  const showNavLinks = currentPage !== 'Dashboard';
+  // If the user is on the Dashboard or Success/Register pages, we hide the main nav links 
+  // to give a focused, application-specific view.
+  const showNavLinks = !['Dashboard', 'Register Produce', 'Registration Success', 'Consumer Login'].includes(currentPage);
 
   return (
     <nav className="border-b border-gray-100 transition-colors duration-500 bg-white dark:bg-gray-900 dark:border-gray-800">
@@ -31,6 +32,7 @@ const Navbar = ({ currentPage, isDarkMode, toggleTheme }) => {
 
         {/* Actions (Sign In and Dark/Light Toggle) */}
         <div className="flex items-center space-x-4">
+          {/* Theme Toggle */}
           <button onClick={toggleTheme} className="p-1 rounded-full text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-500 transition-colors duration-300">
             {isDarkMode ? 
               <Sun className="w-5 h-5" /> : 
@@ -39,9 +41,11 @@ const Navbar = ({ currentPage, isDarkMode, toggleTheme }) => {
           </button>
           
           <User className="w-5 h-5 text-gray-600 dark:text-gray-300 cursor-pointer hover:text-green-600 dark:hover:text-green-500" />
-          <button className="text-gray-600 dark:text-gray-300 font-medium hover:text-green-600 dark:hover:text-green-500 ml-4 border-l dark:border-gray-700 pl-4 transition-colors duration-300">
+          
+          {/* Sign In Link */}
+          <a href="#/login" className="text-gray-600 dark:text-gray-300 font-medium hover:text-green-600 dark:hover:text-green-500 ml-4 border-l dark:border-gray-700 pl-4 transition-colors duration-300">
             Sign In
-          </button>
+          </a>
         </div>
       </div>
     </nav>

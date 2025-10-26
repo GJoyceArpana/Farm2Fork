@@ -12,7 +12,8 @@ import QrScannerPage from './pages/QrScannerPage';
 import BuyProducePage from './pages/BuyProducePage';
 import FarmerDashboardPage from './pages/FarmerDashboardPage';
 import RegisterProducePage from './pages/RegisterProducePage'; 
-import RegistrationSuccessPage from './pages/RegistrationSuccessPage'; // <--- NEW IMPORT
+import RegistrationSuccessPage from './pages/RegistrationSuccessPage'; 
+import ConsumerLoginPage from './pages/ConsumerLoginPage'; // <--- NEW IMPORT
 // Import custom styles
 import './styles/App.css'; 
 
@@ -24,7 +25,8 @@ const getCurrentPage = () => {
   if (hash.startsWith('/buyproduce')) return 'Buy Produce';
   if (hash.startsWith('/dashboard')) return 'Dashboard';
   if (hash.startsWith('/register')) return 'Register Produce';
-  if (hash.startsWith('/success')) return 'Registration Success'; // <--- NEW ROUTE LOGIC
+  if (hash.startsWith('/success')) return 'Registration Success';
+  if (hash.startsWith('/login')) return 'Consumer Login'; // <--- NEW ROUTE LOGIC
   return 'Home'; 
 };
 
@@ -85,8 +87,10 @@ function App() {
         return <FarmerDashboardPage />;
       case 'Register Produce':
         return <RegisterProducePage />;
-      case 'Registration Success': // <--- NEW CASE
+      case 'Registration Success':
         return <RegistrationSuccessPage />;
+      case 'Consumer Login': // <--- NEW CASE
+        return <ConsumerLoginPage />;
       case 'Home':
       default:
         return renderHomePage();
@@ -113,6 +117,7 @@ function App() {
       <footer className="bg-gray-800 text-white text-center py-4 dark:bg-gray-900 transition-colors duration-500">
         <p className="text-sm">&copy; {new Date().getFullYear()} AgriChain. All rights reserved.</p>
       </footer>
+      
     </div>
   );
 }
