@@ -1,8 +1,8 @@
 // src/sections/Hero.jsx
 import React from 'react';
 import { ArrowRight, QrCode } from 'lucide-react';
-// Import the image asset. You must place your image file (e.g., image_345f42.jpg)
-// and rename it to 'field-bg.jpg' inside the src/assets/ folder.
+// Note: We use the .png extension here as a standard placeholder, 
+// ensure your asset file matches the extension you are importing!
 import fieldBg from '../assets/field-bg.png'; 
 
 const Hero = () => {
@@ -21,14 +21,18 @@ const Hero = () => {
             blockchain-powered traceability. Know exactly where your food
             comes from, who grew it, and how it reached you.
           </p>
-          {/* Buttons */}
+          {/* Buttons changed to anchor tags for routing */}
           <div className="flex space-x-4">
-            <button className="btn-primary flex items-center">
+            
+            {/* Start as Farmer -> Farmer Portal Page */}
+            <a href="#/farmer" className="btn-primary flex items-center">
               Start as Farmer <ArrowRight className="w-5 h-5 ml-2" />
-            </button>
-            <button className="btn-secondary-outline flex items-center">
+            </a>
+            
+            {/* Track Your Food -> QR Scanner Page */}
+            <a href="#/qrscanner" className="btn-secondary-outline flex items-center">
               Track Your Food <QrCode className="w-5 h-5 ml-2" />
-            </button>
+            </a>
           </div>
         </div>
 

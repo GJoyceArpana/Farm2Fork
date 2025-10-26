@@ -31,14 +31,7 @@ const Navbar = ({ currentPage }) => {
           <a href="#/buyproduce" className={getLinkClass('Buy Produce')}>Buy Produce</a>
         </div>
 
-        {/* Actions (Sign In and Dark/Light Toggle) */}
-        <div className="flex items-center space-x-4">
-          <Sun className="w-5 h-5 text-gray-600 cursor-pointer hover:text-green-600" />
-          <User className="w-5 h-5 text-gray-600 cursor-pointer hover:text-green-600" />
-          <button className="text-gray-600 font-medium hover:text-green-600 ml-4 border-l pl-4">
-            Sign In
-          </button>
-        </div>
+        
       </div>
     </nav>
   );

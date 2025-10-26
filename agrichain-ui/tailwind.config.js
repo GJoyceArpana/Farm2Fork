@@ -1,12 +1,19 @@
-// tailwind.config.js
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
+  // CRITICAL: Must be 'class' for manual theme toggling
+  darkMode: 'class', 
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}", // This ensures Tailwind finds all classes in your src folder
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      // Defining custom font family based on the design
+      fontFamily: {
+        sans: ['Poppins', 'sans-serif'],
+      },
+      // Custom colors can be extended here if needed
+    },
   },
   plugins: [],
 }
