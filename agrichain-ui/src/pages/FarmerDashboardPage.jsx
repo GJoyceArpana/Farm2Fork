@@ -7,7 +7,7 @@ import {
   CheckCircle, 
   TrendingUp, 
   Plus, 
-  Cube,
+  Archive, // <-- Fixed icon for batches
   User 
 } from 'lucide-react';
 
@@ -61,10 +61,18 @@ const FarmerDashboardPage = () => {
       iconBg: 'bg-purple-100 dark:bg-purple-900' 
     },
   ];
+  
+  // CRITICAL: Function to redirect to the registration page
+  const redirectToRegister = () => {
+      // Uses the history API to reliably change the URL hash and trigger the App.jsx router
+      history.pushState(null, '', '#/register');
+  };
+
 
   return (
     <div className="pb-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-500">
-      {/* Navbar is rendered by App.jsx, but we need to ensure the user info is shown */}
+      
+      {/* Navbar is rendered by App.jsx, but we render the user info separately */}
       <div className="container pt-6 flex justify-end">
         {/* Placeholder for the user info shown in the top right of the dashboard image */}
         <div className="flex items-center space-x-2 text-gray-700 dark:text-gray-300">
@@ -87,9 +95,10 @@ const FarmerDashboardPage = () => {
             </p>
           </div>
           
+          {/* Button 1: Register Produce (Top Right) */}
           <button 
             className="flex items-center px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-150"
-            onClick={() => console.log('Redirect to Register Produce Form')}
+            onClick={redirectToRegister}
           >
             <Plus className="w-5 h-5 mr-2" /> Register Produce
           </button>
@@ -111,12 +120,12 @@ const FarmerDashboardPage = () => {
 
         {/* Registered Batches Section */}
         <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
-          <Cube className="w-5 h-5 mr-2" /> Your Registered Batches
+          <Archive className="w-5 h-5 mr-2" /> Your Registered Batches
         </h2>
         
         {/* Empty State / No Batches Placeholder */}
         <div className="text-center p-16 border border-dashed border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 shadow-sm transition-colors duration-500">
-          <Cube className="w-16 h-16 mx-auto text-gray-400 dark:text-gray-500 mb-4" />
+          <Archive className="w-16 h-16 mx-auto text-gray-400 dark:text-gray-500 mb-4" />
           <p className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
             No batches registered yet
           </p>
@@ -124,9 +133,10 @@ const FarmerDashboardPage = () => {
             Start by registering your first produce batch to track it through the supply chain.
           </p>
           
+          {/* Button 2: Register First Batch (Center) */}
           <button 
             className="flex items-center mx-auto px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-lg hover:bg-green-700 transition duration-150"
-            onClick={() => console.log('Redirect to Register First Batch Form')}
+            onClick={redirectToRegister}
           >
             <Plus className="w-5 h-5 mr-2" /> Register First Batch
           </button>
