@@ -7,9 +7,10 @@ import {
   CheckCircle, 
   TrendingUp, 
   Plus, 
-  Archive, // <-- Fixed icon for batches
+  Archive,
   User 
 } from 'lucide-react';
+import BatchCard from '../components/BatchCard'; // <--- Import the BatchCard
 
 /**
  * Reusable Metric Card component for the dashboard statistics.
@@ -27,14 +28,24 @@ const MetricCard = ({ title, value, icon: Icon, iconColor, iconBg }) => (
 );
 
 const FarmerDashboardPage = () => {
-  // Mock User Data (to be replaced by actual state/context)
   const userName = "Joyce";
   const farmId = "111111";
+
+  // Mock data for the registered batches
+  const batches = [
+      { 
+          id: "BATCHMH7V1C52", 
+          name: "tomato", 
+          quantity: "1 kg", 
+          harvestDate: "Oct 26, 2025", 
+          progress: 25 // 25% complete (Farm to Transport)
+      }
+  ];
 
   const metrics = [
     { 
       title: 'Total Batches', 
-      value: '0', 
+      value: batches.length.toString(), // Updated to reflect batch count
       icon: Package, 
       iconColor: 'text-blue-600', 
       iconBg: 'bg-blue-100 dark:bg-blue-900' 
@@ -62,25 +73,16 @@ const FarmerDashboardPage = () => {
     },
   ];
   
-  // CRITICAL: Function to redirect to the registration page
+  // CRITICAL: Function to redirect to the registration page (using <a> tag is the final fix)
   const redirectToRegister = () => {
-      // Uses the history API to reliably change the URL hash and trigger the App.jsx router
+      // NOTE: This function is defined but not strictly necessary as buttons now use <a> tags, 
+      // but is kept for context if you wanted to use programmatic navigation later.
       history.pushState(null, '', '#/register');
   };
 
 
   return (
     <div className="pb-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-500">
-      
-      {/* Navbar is rendered by App.jsx, but we render the user info separately */}
-      <div className="container pt-6 flex justify-end">
-        {/* Placeholder for the user info shown in the top right of the dashboard image */}
-        <div className="flex items-center space-x-2 text-gray-700 dark:text-gray-300">
-          <User className="w-5 h-5" />
-          <span className="font-medium">{userName}</span>
-          <span className="text-xs bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-300 px-2 py-1 rounded-full">Farmer</span>
-        </div>
-      </div>
       
       <main className="container pt-4">
         
@@ -95,13 +97,13 @@ const FarmerDashboardPage = () => {
             </p>
           </div>
           
-          {/* Button 1: Register Produce (Top Right) */}
-          <button 
+          {/* Button 1: Register Produce (Top Right) - Uses <a> for reliable routing */}
+          <a 
+            href="#/register"
             className="flex items-center px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition duration-150"
-            onClick={redirectToRegister}
           >
             <Plus className="w-5 h-5 mr-2" /> Register Produce
-          </button>
+          </a>
         </div>
 
         {/* Metric Cards Section */}
@@ -123,24 +125,31 @@ const FarmerDashboardPage = () => {
           <Archive className="w-5 h-5 mr-2" /> Your Registered Batches
         </h2>
         
-        {/* Empty State / No Batches Placeholder */}
-        <div className="text-center p-16 border border-dashed border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 shadow-sm transition-colors duration-500">
-          <Archive className="w-16 h-16 mx-auto text-gray-400 dark:text-gray-500 mb-4" />
-          <p className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
-            No batches registered yet
-          </p>
-          <p className="text-gray-500 dark:text-gray-400 mb-6">
-            Start by registering your first produce batch to track it through the supply chain.
-          </p>
-          
-          {/* Button 2: Register First Batch (Center) */}
-          <button 
-            className="flex items-center mx-auto px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-lg hover:bg-green-700 transition duration-150"
-            onClick={redirectToRegister}
-          >
-            <Plus className="w-5 h-5 mr-2" /> Register First Batch
-          </button>
-        </div>
+        {/* Conditional Rendering of Batch List or Empty State */}
+        {batches.length > 0 ? (
+            batches.map(batch => (
+                <BatchCard key={batch.id} batch={batch} />
+            ))
+        ) : (
+            /* Empty State / No Batches Placeholder */
+            <div className="text-center p-16 border border-dashed border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 shadow-sm transition-colors duration-500">
+              <Archive className="w-16 h-16 mx-auto text-gray-400 dark:text-gray-500 mb-4" />
+              <p className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                No batches registered yet
+              </p>
+              <p className="text-gray-500 dark:text-gray-400 mb-6">
+                Start by registering your first produce batch to track it through the supply chain.
+              </p>
+              
+              {/* Button 2: Register First Batch (Center) - Uses <a> for reliable routing */}
+              <a 
+                href="#/register"
+                className="flex items-center mx-auto px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-lg hover:bg-green-700 transition duration-150"
+              >
+                <Plus className="w-5 h-5 mr-2" /> Register First Batch
+              </a>
+            </div>
+        )}
         
       </main>
     </div>

@@ -45,37 +45,23 @@ const RegisterProducePage = () => {
   const [produceImage, setProduceImage] = useState(null);
 
   const handleFileChange = (e) => {
-    // In a real app, you would upload this file to a service (like Firebase Storage)
     setProduceImage(e.target.files[0]);
   };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    console.log('Registering Produce Batch:', { produceName, quantity, harvestDate, imageFile: produceImage?.name });
-
-    // Simulate API call success
-    alert('Produce Registered! Redirecting to Dashboard...'); 
-    
-    // Redirect back to the dashboard using reliable routing
-    history.pushState(null, '', '#/dashboard');
-  };
-
-  const handleBackToDashboard = () => {
-    history.pushState(null, '', '#/dashboard');
-  };
+  // NOTE: Redirection logic is now handled by the <a> tags below.
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-800 transition-colors duration-500 pb-20">
       
       <main className="container pt-6 max-w-4xl">
         
-        {/* Back Button */}
-        <button 
-          onClick={handleBackToDashboard}
+        {/* Back Button - CONVERTED TO ANCHOR TAG */}
+        <a 
+          href="#/dashboard"
           className="flex items-center text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-500 transition duration-150 mb-6"
         >
           <ArrowLeft className="w-5 h-5 mr-2" /> Back to Dashboard
-        </button>
+        </a>
 
         {/* Page Title */}
         <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-1">
@@ -85,7 +71,8 @@ const RegisterProducePage = () => {
           Add your harvest to the blockchain for complete traceability
         </p>
 
-        <form onSubmit={handleFormSubmit}>
+        {/* Form area starts here. Using a div instead of a formal <form> tag to avoid submission conflicts */}
+        <div> 
           <div className="bg-white dark:bg-gray-700 p-8 rounded-xl shadow-lg border border-gray-100 dark:border-gray-600 mb-8">
             <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-6 flex items-center">
               <Archive className="w-5 h-5 mr-2" /> Produce Information
@@ -133,36 +120,21 @@ const RegisterProducePage = () => {
                 ) : (
                   <>
                     <ImageIcon className="w-12 h-12 mx-auto text-gray-400 mb-2" />
-                    <p className="text-gray-600 dark:text-gray-400 mb-3">
-                      Upload a photo of your produce
-                    </p>
-                    <input 
-                      type="file" 
-                      id="file-upload" 
-                      className="hidden" 
-                      accept="image/jpeg, image/png, image/webp"
-                      onChange={handleFileChange} 
-                    />
-                    <label 
-                      htmlFor="file-upload"
-                      className="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition duration-150"
-                    >
+                    <p className="text-gray-600 dark:text-gray-400 mb-3">Upload a photo of your produce</p>
+                    <input type="file" id="file-upload" className="hidden" accept="image/jpeg, image/png, image/webp" onChange={handleFileChange} />
+                    <label htmlFor="file-upload" className="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition duration-150">
                       <Upload className="w-4 h-4 mr-2" /> Choose Image
                     </label>
                   </>
                 )}
-                <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
-                  Maximum file size: 5MB. Supported formats: JPEG, PNG, WebP
-                </p>
+                <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">Maximum file size: 5MB. Supported formats: JPEG, PNG, WebP</p>
               </div>
             </div>
           </div>
           
           {/* What Happens Next Section */}
           <div className="bg-blue-50 dark:bg-blue-900 p-6 rounded-xl border border-blue-200 dark:border-blue-800 mb-8">
-            <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-300 mb-3">
-              What happens next?
-            </h3>
+            <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-300 mb-3">What happens next?</h3>
             <ul className="list-disc pl-5 text-sm text-blue-700 dark:text-blue-200 space-y-2">
               <li>Your produce will be registered on the blockchain</li>
               <li>A unique QR code will be generated for tracking</li>
@@ -171,15 +143,14 @@ const RegisterProducePage = () => {
             </ul>
           </div>
 
-          {/* Submit Button */}
-          <button
-            type="submit"
+          {/* Submit Button (Anchor Tag) */}
+          <a
+            href="#/success" 
             className="w-full btn-primary py-3 text-lg shadow-lg hover:shadow-xl transition duration-300 flex items-center justify-center"
           >
             <Archive className="w-5 h-5 mr-2" /> Register Produce
-          </button>
-
-        </form>
+          </a>
+        </div>
       </main>
     </div>
   );

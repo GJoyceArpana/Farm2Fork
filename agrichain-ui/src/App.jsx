@@ -6,13 +6,14 @@ import Hero from './sections/Hero';
 import Stats from './sections/Stats';
 import Features from './sections/Features';
 import CTA from './sections/CTA';
-// Import the application pages
+// Import all application pages
 import FarmerPortalPage from './pages/FarmerPortalPage';
 import QrScannerPage from './pages/QrScannerPage';
 import BuyProducePage from './pages/BuyProducePage';
 import FarmerDashboardPage from './pages/FarmerDashboardPage';
-import RegisterProducePage from './pages/RegisterProducePage'; // <--- NEW IMPORT
-// Import custom styles (contains custom classes and color variables)
+import RegisterProducePage from './pages/RegisterProducePage'; 
+import RegistrationSuccessPage from './pages/RegistrationSuccessPage'; // <--- NEW IMPORT
+// Import custom styles
 import './styles/App.css'; 
 
 // Utility function to determine the current page based on URL hash
@@ -21,9 +22,10 @@ const getCurrentPage = () => {
   if (hash.startsWith('/farmer')) return 'Farmer Portal';
   if (hash.startsWith('/qrscanner')) return 'QR Scanner';
   if (hash.startsWith('/buyproduce')) return 'Buy Produce';
-  if (hash.startsWith('/dashboard')) return 'Dashboard'; // Dashboard page
-  if (hash.startsWith('/register')) return 'Register Produce'; // New Register Produce form
-  return 'Home'; // Default to Home page
+  if (hash.startsWith('/dashboard')) return 'Dashboard';
+  if (hash.startsWith('/register')) return 'Register Produce';
+  if (hash.startsWith('/success')) return 'Registration Success'; // <--- NEW ROUTE LOGIC
+  return 'Home'; 
 };
 
 function App() {
@@ -81,8 +83,10 @@ function App() {
         return <BuyProducePage />;
       case 'Dashboard': 
         return <FarmerDashboardPage />;
-      case 'Register Produce': // <--- NEW CASE
-        return <RegisterProducePage />;
+      case 'Register Produce':
+        return <RegisterProducePage />;
+      case 'Registration Success': // <--- NEW CASE
+        return <RegistrationSuccessPage />;
       case 'Home':
       default:
         return renderHomePage();
