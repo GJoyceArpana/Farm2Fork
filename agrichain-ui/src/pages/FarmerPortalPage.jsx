@@ -26,27 +26,32 @@ const FarmerPortalPage = () => {
   const [isLogin, setIsLogin] = useState(true); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // Mock user name for persistence. This should be empty initially, but is pre-filled here for demo purposes.
   const [fullName, setFullName] = useState('John Farm Owner'); 
   const [aadharId, setAadharId] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   // Function to save user data to localStorage and redirect
   const authenticateAndRedirect = (user, role) => {
-    // 1. Persist mock user data (name and role) in localStorage
+    // 1. Persist mock user data
     localStorage.setItem('user', JSON.stringify({ name: user, role: role }));
     
-    // 2. Redirect to Dashboard
-    history.pushState(null, '', '#/dashboard'); 
+    // 2. Redirect to Dashboard using the most aggressive method
+    window.location.hash = '#/dashboard'; 
   };
 
   const handleSubmit = (e) => {
     e.preventDefault(); 
     
+    // Reset form fields immediately
+    setEmail('');
+    setPassword('');
+    setAadharId('');
+    setConfirmPassword('');
+    
     // --- Mock Authentication Logic ---
     if (isLogin) {
       console.log('Login attempt:', { email, password });
-      // On success, redirect and save mock user data
+      // FINAL FIX: Immediate call
       authenticateAndRedirect(fullName, 'farmer'); 
 
     } else {
@@ -55,15 +60,9 @@ const FarmerPortalPage = () => {
         return;
       }
       console.log('Sign Up attempt:', { fullName, aadharId, email, password });
-      // On success, redirect and save mock user data
+      // FINAL FIX: Immediate call
       authenticateAndRedirect(fullName, 'farmer'); 
     }
-    
-    // Reset form fields
-    setEmail('');
-    setPassword('');
-    setAadharId('');
-    setConfirmPassword('');
   };
 
   /**

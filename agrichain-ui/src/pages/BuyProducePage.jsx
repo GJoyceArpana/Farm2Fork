@@ -1,10 +1,9 @@
 // src/pages/BuyProducePage.jsx
 import React, { useState } from 'react';
-import { ShoppingCart, Search, QrCode, User, Bell } from 'lucide-react';
+import { ShoppingCart, Search, QrCode, User, Bell, ArrowRight } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 
 // IMPORTANT: Placeholder imports for product images.
-// You must place your actual image files here (e.g., 'tomato.jpg', 'carrots.jpg').
 import tomatoImage from '../assets/tomato.png'; 
 import carrotsImage from '../assets/carrots.png'; 
 
@@ -42,11 +41,9 @@ const featuredProducts = [
   // Add more products here
 ];
 
-// --- Reusable Components for the Page (Simplified for clarity) ---
+// --- Reusable Components ---
 
 const CategoryButton = ({ name, icon, count, isActive, onClick }) => {
-    // Note: Lucide icons can be used here for a clean look, or use SVGs.
-    // Using simple placeholders for the icon text here.
     const iconMap = {
         'All': <div className='w-full h-full flex items-center justify-center'>&#9733;</div>, 
         'Vegetables': <div className='w-full h-full flex items-center justify-center'>&#129367;</div>, 
@@ -58,8 +55,8 @@ const CategoryButton = ({ name, icon, count, isActive, onClick }) => {
     return (
         <button
             onClick={onClick}
-            className={`flex flex-col items-center p-3 rounded-xl transition duration-200 w-24 h-24 ${
-                isActive ? 'bg-gray-900 text-white shadow-lg' : 'bg-white text-gray-700 hover:bg-gray-100'
+            className={`flex flex-col items-center p-3 rounded-xl transition duration-200 w-24 h-24 dark:bg-gray-700 dark:text-gray-300 ${
+                isActive ? 'bg-gray-900 text-white shadow-lg dark:bg-gray-900' : 'bg-white text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600'
             }`}
         >
             <div className={`w-8 h-8 text-2xl mb-1 ${isActive ? 'text-green-400' : 'text-gray-500'}`}>
@@ -67,7 +64,7 @@ const CategoryButton = ({ name, icon, count, isActive, onClick }) => {
             </div>
             <span className="text-xs font-medium">{name}</span>
             {isActive && <span className="text-xs font-semibold mt-1">{count}</span>}
-            {!isActive && <span className="text-xs font-semibold mt-1 opacity-0">.</span>} {/* Placeholder for layout */}
+            {!isActive && <span className="text-xs font-semibold mt-1 opacity-0">.</span>}
         </button>
     );
 };
@@ -77,56 +74,63 @@ const CategoryButton = ({ name, icon, count, isActive, onClick }) => {
 
 const BuyProducePage = () => {
   const [activeCategory, setActiveCategory] = useState('All');
+  const [searchTerm, setSearchTerm] = useState('');
+  
+  // Mock user details based on Navbar state (kept for unused local logic)
+  const user = { name: "John Consumer", isLoggedIn: true }; 
+
+  const handleSearchSubmit = (e) => {
+      e.preventDefault();
+      console.log("Searching for: " + searchTerm);
+      // In a real app, this would filter the products
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
       <main className="pb-20">
-
-        {/* Top Header/Search Bar */}
-        <div className="bg-green-600 py-4 shadow-md mb-8">
-          <div className="container flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <span className="text-xl font-bold text-white">AgriChain Buyer</span>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Bell className="w-5 h-5 text-white cursor-pointer hover:text-green-200" />
-              <button className="text-white font-medium bg-green-700 px-3 py-1 rounded-md hover:bg-green-800">
-                Sign In
-              </button>
-            </div>
-          </div>
-
-          <div className="container mt-4 flex space-x-4">
-            <div className="relative flex-grow">
-              <Search className="w-5 h-5 text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2" />
-              <input
-                type="text"
-                placeholder="Search for Produce"
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500"
-              />
-            </div>
-            <button className="bg-white p-2 rounded-lg hover:bg-gray-100 transition duration-150">
-              <QrCode className="w-6 h-6 text-gray-700" />
-            </button>
+        
+        {/* Custom Buyer Header (ONLY SEARCH BAR REMAINS) */}
+        <div className="bg-green-600 py-4 shadow-md mb-8 dark:bg-green-800 transition-colors duration-500">
+          <div className="container">
+            {/* WELCOME/NOTIFICATION AREA REMOVED (AgriChain Buyer, Welcome, Bell) */}
+            
+            {/* Search Bar (Centered by removing flex parents) */}
+            <form onSubmit={handleSearchSubmit} className="relative flex space-x-4">
+                <div className="relative flex-grow">
+                    <Search className="w-5 h-5 text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                    <input
+                        type="text"
+                        placeholder="Search for Produce"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 dark:bg-gray-900 dark:text-white"
+                    />
+                </div>
+                <button type="submit" className="bg-white p-2 rounded-lg hover:bg-gray-100 transition duration-150 dark:bg-gray-900 dark:hover:bg-gray-700">
+                    <ArrowRight className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+                </button>
+            </form>
           </div>
         </div>
-        
+
+
         <div className="container">
           {/* Action Buttons */}
           <div className="grid grid-cols-3 gap-4 mb-10">
-            <button className="flex items-center justify-center p-4 bg-blue-600 text-white font-semibold rounded-xl shadow-md hover:bg-blue-700 transition">
+            {/* These buttons should link to the appropriate hash routes */}
+            <a href="#/scan" className="flex items-center justify-center p-4 bg-blue-600 text-white font-semibold rounded-xl shadow-md hover:bg-blue-700 transition">
               <QrCode className="w-5 h-5 mr-2" /> Scan QR
-            </button>
-            <button className="flex items-center justify-center p-4 bg-green-600 text-white font-semibold rounded-xl shadow-md hover:bg-green-700 transition">
+            </a>
+            <a href="#/buyproduce" className="flex items-center justify-center p-4 bg-green-600 text-white font-semibold rounded-xl shadow-md hover:bg-green-700 transition">
               <ShoppingCart className="w-5 h-5 mr-2" /> Buy Produce
-            </button>
-            <button className="flex items-center justify-center p-4 bg-white text-gray-800 font-semibold rounded-xl shadow-md hover:bg-gray-100 transition border border-gray-200">
+            </a>
+            <button className="flex items-center justify-center p-4 bg-white text-gray-800 font-semibold rounded-xl shadow-md hover:bg-gray-100 transition border border-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600">
               <User className="w-5 h-5 mr-2" /> Orders
             </button>
           </div>
 
           {/* Categories */}
-          <h2 className="text-xl font-bold text-gray-800 mb-4">Categories</h2>
+          <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">Categories</h2>
           <div className="flex space-x-4 overflow-x-auto pb-4">
             {categories.map(cat => (
               <CategoryButton
@@ -140,11 +144,11 @@ const BuyProducePage = () => {
             ))}
           </div>
           
-          <hr className="my-8 border-gray-200" />
+          <hr className="my-8 border-gray-200 dark:border-gray-600" />
 
           {/* Featured Products */}
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-gray-800">Featured Products</h2>
+            <h2 className="text-xl font-bold text-gray-800 dark:text-white">Featured Products</h2>
             <a href="#" className="text-green-600 font-medium hover:text-green-700">View All</a>
           </div>
 
@@ -155,10 +159,10 @@ const BuyProducePage = () => {
           </div>
 
           {/* Special Offers Banner */}
-          <div className="mt-12 p-6 bg-orange-100 rounded-xl flex justify-between items-center shadow-md">
+          <div className="mt-12 p-6 bg-orange-100 dark:bg-orange-900 rounded-xl flex justify-between items-center shadow-md">
             <div>
-              <h3 className="text-xl font-bold text-gray-800 mb-1">Today's Special Offers</h3>
-              <p className="text-gray-600">Up to 20% off on organic vegetables 🥕</p>
+              <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-1">Today's Special Offers</h3>
+              <p className="text-gray-600 dark:text-gray-300">Up to 20% off on organic vegetables 🥕</p>
             </div>
             <button className="bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:bg-orange-700 transition">
               Shop Now

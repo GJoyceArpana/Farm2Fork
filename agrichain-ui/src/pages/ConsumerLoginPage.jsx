@@ -134,6 +134,8 @@ const ConsumerLoginPage = () => {
         if (otp === '123456') {
             console.log("OTP Verified! Logging in...");
             // CRITICAL FIX: Redirect user to the Buy Produce page after successful login
+            // Also set mock user data for Navbar visibility
+            localStorage.setItem('user', JSON.stringify({ name: 'John Consumer', role: 'consumer' }));
             history.pushState(null, '', '#/buyproduce'); 
         } else {
             alert('Verification failed. Please check the OTP.');

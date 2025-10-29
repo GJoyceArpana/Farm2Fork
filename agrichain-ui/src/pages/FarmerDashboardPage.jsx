@@ -28,45 +28,46 @@ const MetricCard = ({ title, value, icon: Icon, iconColor, iconBg }) => (
 );
 
 const FarmerDashboardPage = () => {
-  const userName = "Joyce";
-  const farmId = "111111";
+  const userName = "John Farm Owner"; // Updated name for consistency
+  const farmId = "FARM001"; // Updated ID for consistency
 
-  // Mock data for the registered batches
+  // Mock data for the registered batches: ONE DELIVERED BATCH
   const batches = [
       { 
-          id: "BATCHMH7V1C52", 
-          name: "tomato", 
-          quantity: "1 kg", 
-          harvestDate: "Oct 26, 2025", 
-          progress: 25 // 25% complete (Farm to Transport)
+          id: "BATCH001", 
+          name: "Organic Tomatoes", 
+          quantity: "100 kg", 
+          harvestDate: "Jan 15, 2024", 
+          progress: 100, // 100% complete for delivered status
+          status: "delivered" // New status property for card display
       }
   ];
 
   const metrics = [
     { 
       title: 'Total Batches', 
-      value: batches.length.toString(), // Updated to reflect batch count
+      value: batches.length.toString(), // 1
       icon: Package, 
       iconColor: 'text-blue-600', 
       iconBg: 'bg-blue-100 dark:bg-blue-900' 
     },
     { 
       title: 'In Transit', 
-      value: '0', 
+      value: '0', // Assuming 0 in transit
       icon: Clock, 
       iconColor: 'text-orange-500', 
       iconBg: 'bg-orange-100 dark:bg-orange-900' 
     },
     { 
       title: 'Delivered', 
-      value: '0', 
+      value: '1', // Updated to 1
       icon: CheckCircle, 
       iconColor: 'text-green-600', 
       iconBg: 'bg-green-100 dark:bg-green-900' 
     },
     { 
       title: 'Success Rate', 
-      value: '0%', 
+      value: '100%', // Updated to 100%
       icon: TrendingUp, 
       iconColor: 'text-purple-600', 
       iconBg: 'bg-purple-100 dark:bg-purple-900' 
@@ -75,8 +76,6 @@ const FarmerDashboardPage = () => {
   
   // CRITICAL: Function to redirect to the registration page (using <a> tag is the final fix)
   const redirectToRegister = () => {
-      // NOTE: This function is defined but not strictly necessary as buttons now use <a> tags, 
-      // but is kept for context if you wanted to use programmatic navigation later.
       history.pushState(null, '', '#/register');
   };
 
@@ -131,7 +130,7 @@ const FarmerDashboardPage = () => {
                 <BatchCard key={batch.id} batch={batch} />
             ))
         ) : (
-            /* Empty State / No Batches Placeholder */
+            /* Empty State / No Batches Placeholder (Removed for this final data state) */
             <div className="text-center p-16 border border-dashed border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 shadow-sm transition-colors duration-500">
               <Archive className="w-16 h-16 mx-auto text-gray-400 dark:text-gray-500 mb-4" />
               <p className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">

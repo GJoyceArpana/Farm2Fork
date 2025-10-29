@@ -1,15 +1,70 @@
 // src/components/Navbar.jsx
-import React from 'react';
-import { Leaf, User, Sun, Moon } from 'lucide-react'; 
+import React, { useState, useEffect } from 'react';
+import { Leaf, User, Sun, Moon, LogOut } from 'lucide-react'; 
 
-// Navbar is now fixed to always use hash links for client-side routing
 const Navbar = ({ currentPage, isDarkMode, toggleTheme }) => {
-  // If the user is on the Dashboard or Success/Register pages, we hide the main nav links 
-  // to give a focused, application-specific view.
-  const showNavLinks = !['Dashboard', 'Register Produce', 'Registration Success', 'Consumer Login'].includes(currentPage);
+  const [user, setUser] = useState(null);
+
+  // Load user data from localStorage on mount and whenever the page state changes
+  useEffect(() => {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      try {
+        setUser(JSON.parse(userData));
+      } catch (e) {
+        console.error("Error parsing user data from localStorage:", e);
+        localStorage.removeItem('user');
+      }
+    } else {
+      setUser(null); // Ensure state is null if localStorage is empty
+    }
+  }, [currentPage]); // Re-run this effect when navigating between pages
+
+  const handleSignOut = () => {
+    localStorage.removeItem('user');
+    setUser(null); // Clear local state
+    // Redirect to the home page after sign out
+    history.pushState(null, '', '#/home');
+  };
+
+  // Conditional check to hide main navigation links on focused application pages
+  const showNavLinks = !['Dashboard', 'Register Produce', 'Registration Success', 'Consumer Login', 'Produce Details'].includes(currentPage);
+  const isLoggedIn = !!user;
+  
+  // Conditionally set the display elements based on login status
+  const UserControls = () => {
+    if (isLoggedIn) {
+      return (
+        <div className="flex items-center space-x-3">
+          {/* User Name and Role */}
+          <span className="text-gray-600 dark:text-gray-300 font-medium">{user.name}</span>
+          <span className="text-xs bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-300 px-2 py-1 rounded-full">{user.role}</span>
+          
+          {/* Sign Out Button */}
+          <button 
+            onClick={handleSignOut}
+            className="p-1 text-gray-600 dark:text-gray-300 hover:text-red-500 transition-colors duration-300"
+            title="Sign Out"
+          >
+            <LogOut className="w-5 h-5" />
+          </button>
+        </div>
+      );
+    }
+    
+    // Default Sign In / User Icon when logged out
+    return (
+      <div className="flex items-center space-x-4">
+        <User className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+        <a href="#/login" className="text-gray-600 dark:text-gray-300 font-medium hover:text-green-600 dark:hover:text-green-500 ml-4 border-l dark:border-gray-700 pl-4 transition-colors duration-300">
+          Sign In
+        </a>
+      </div>
+    );
+  };
 
   return (
-    <nav className="border-b border-gray-100 transition-colors duration-500 bg-white dark:bg-gray-900 dark:border-gray-800">
+    <nav className="border-b border-gray-100 transition-colors duration-500 bg-white dark:bg-gray-900 dark:border-gray-800 sticky top-0 z-10">
       <div className="container flex items-center justify-between h-20">
         {/* Logo and Tagline */}
         <a href="#/home" className="flex items-center space-x-2">
@@ -30,7 +85,7 @@ const Navbar = ({ currentPage, isDarkMode, toggleTheme }) => {
           </div>
         )}
 
-        {/* Actions (Sign In and Dark/Light Toggle) */}
+        {/* Actions (Dark/Light Toggle and User Info/Sign In) */}
         <div className="flex items-center space-x-4">
           {/* Theme Toggle */}
           <button onClick={toggleTheme} className="p-1 rounded-full text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-500 transition-colors duration-300">
@@ -40,12 +95,8 @@ const Navbar = ({ currentPage, isDarkMode, toggleTheme }) => {
             }
           </button>
           
-          <User className="w-5 h-5 text-gray-600 dark:text-gray-300 cursor-pointer hover:text-green-600 dark:hover:text-green-500" />
-          
-          {/* Sign In Link */}
-          <a href="#/login" className="text-gray-600 dark:text-gray-300 font-medium hover:text-green-600 dark:hover:text-green-500 ml-4 border-l dark:border-gray-700 pl-4 transition-colors duration-300">
-            Sign In
-          </a>
+          {/* User Controls */}
+          <UserControls />
         </div>
       </div>
     </nav>
