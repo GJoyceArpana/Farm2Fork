@@ -4,16 +4,7 @@ import { Star } from 'lucide-react';
 
 /**
  * Reusable card component for displaying individual product details 
- * in the Buy Produce catalog.
- * @param {object} props - Product details
- * @param {string} props.imageSrc - URL/path to the product image.
- * @param {string} props.title - Name of the product (e.g., Organic Tomatoes).
- * @param {number} props.rating - Star rating.
- * @param {number} props.reviews - Number of customer reviews.
- * @param {string} props.location - Origin location.
- * @param {string} props.price - Price per unit (e.g., ₹48/kg).
- * @param {boolean} props.isOrganic - Flag to show the 'Organic' badge.
- * @param {boolean} props.isConventional - Flag to show the 'Conventional' badge.
+ * in the Buy Produce catalog, with an added click handler for traceability.
  */
 const ProductCard = ({ 
   imageSrc, 
@@ -24,13 +15,19 @@ const ProductCard = ({
   price, 
   isOrganic = false,
   isConventional = false,
+  // NEW PROP: Function to call when the card is clicked (e.g., to route)
+  onViewDetails, 
 }) => {
   // Determine the primary badge color and text
   const primaryBadgeColor = "bg-green-600";
   const primaryBadgeText = "Blockchain Verified";
 
   return (
-    <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden w-full max-w-sm cursor-pointer">
+    <div 
+      className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden w-full max-w-sm cursor-pointer"
+      // Apply the click handler here to make the whole card interactive
+      onClick={onViewDetails}
+    >
       
       {/* Product Image */}
       <div className="relative h-48">
@@ -38,7 +35,6 @@ const ProductCard = ({
           src={imageSrc} 
           alt={title} 
           className="w-full h-full object-cover" 
-          // Placeholder image fallback for development
           onError={(e) => {
             e.target.onerror = null; 
             e.target.src = "https://placehold.co/600x400/D1E7DD/0F5132?text=Product+Image";
