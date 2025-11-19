@@ -127,9 +127,10 @@ const BuyProducePage = () => {
             <a href="#/buyproduce" className="flex items-center justify-center p-4 bg-green-600 text-white font-semibold rounded-xl shadow-md hover:bg-green-700 transition">
               <ShoppingCart className="w-5 h-5 mr-2" /> Buy Produce
             </a>
-            <button className="flex items-center justify-center p-4 bg-white text-gray-800 font-semibold rounded-xl shadow-md hover:bg-gray-100 transition border border-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600">
+            {/* MODIFIED: Link to the new dashboard route */}
+            <a href="#/dashboard" className="flex items-center justify-center p-4 bg-white text-gray-800 font-semibold rounded-xl shadow-md hover:bg-gray-100 transition border border-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600">
               <User className="w-5 h-5 mr-2" /> Orders
-            </button>
+            </a>
           </div>
 
           {/* Categories */}
